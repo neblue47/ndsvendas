@@ -1,4 +1,4 @@
-package com.nds.api.ndsvendas.services;
+package com.nds.api.ndsvendas.implments;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -22,7 +22,7 @@ import com.nds.api.ndsvendas.repositories.UtilizadorRepository;
 import com.nds.api.ndsvendas.security.repository.LoginRepository;
 
 @Service
-public class UtilizadorService {
+public class UtilizadorImplements {
 
 	@Autowired UtilizadorRepository _userRepository;
 	@Autowired LoginRepository _loginRepository;

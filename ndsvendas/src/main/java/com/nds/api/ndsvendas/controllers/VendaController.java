@@ -21,27 +21,34 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nds.api.ndsvendas.dtos.InventarioPackDTO;
 import com.nds.api.ndsvendas.dtos.VendaDTO;
 import com.nds.api.ndsvendas.enums.EFormaPagamento;
+import com.nds.api.ndsvendas.enums.EUnidade;
+import com.nds.api.ndsvendas.implments.ClienteImplements;
+import com.nds.api.ndsvendas.implments.InventarioImplement;
+import com.nds.api.ndsvendas.implments.ProdutoImplements;
+import com.nds.api.ndsvendas.implments.UtilizadorImplements;
+import com.nds.api.ndsvendas.implments.VendaImplements;
 import com.nds.api.ndsvendas.models.ClienteModel;
 import com.nds.api.ndsvendas.models.ContaClienteModel;
+import com.nds.api.ndsvendas.models.InventarioModel;
 import com.nds.api.ndsvendas.models.ItemVendaModel;
 import com.nds.api.ndsvendas.models.UtilizadorModel;
 import com.nds.api.ndsvendas.models.VendaModel;
-import com.nds.api.ndsvendas.services.ClienteService;
-import com.nds.api.ndsvendas.services.ProdutoService;
-import com.nds.api.ndsvendas.services.UtilizadorService;
-import com.nds.api.ndsvendas.services.VendaService;
+import com.nds.api.ndsvendas.repositories.ProdutoRepository;
  
 @CrossOrigin(origins = "*",maxAge = 3600)
 @RestController
 @RequestMapping("/vendas")
 public class VendaController {
 
-	@Autowired VendaService _saleServices;
-	@Autowired ProdutoService _productServices;
-	@Autowired ClienteService _clientServices; 
-	@Autowired  UtilizadorService _userServiceImpl;
+	@Autowired VendaImplements _saleServices;
+	@Autowired InventarioImplement _invetImpl;
+	@Autowired ProdutoImplements _productServices; 
+	@Autowired ClienteImplements _clientServices; 
+	@Autowired  UtilizadorImplements _userServiceImpl;
+	
 	
 	@PostMapping
     public ResponseEntity<Object> saveVenda(@RequestBody @Valid VendaDTO modelDTO){
@@ -50,6 +57,7 @@ public class VendaController {
         var conta = SetUpContaCliente(modelDTO); 
         var bodyContent = _saleServices.save(model);
         _saleServices.UpContaCliente(conta);
+        _invetImpl.atualizarStock(model);
         return ResponseEntity.status(HttpStatus.CREATED).body(bodyContent);
     }
 	
@@ -61,7 +69,14 @@ public class VendaController {
         }
         return ResponseEntity.status(HttpStatus.OK).body(ClienteModelOptional.get());
     }
-	
+	@GetMapping("/produtoPorId/{produtoId}")
+    public ResponseEntity<Object> getOneCliente(@PathVariable(value = "produtoId") UUID produtoId){
+        var itemModelOptional = _productServices.findById(produtoId);
+        if (!itemModelOptional.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("itemModelOptional not found.");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(itemModelOptional.get());
+    }
 	@PostMapping("/savecliente")
     public ResponseEntity<Object> saveCliente(@RequestBody @Valid ClienteModel model){
 		if(_clientServices.existsByNumTelefone(model.getNumTelefone())){
@@ -160,16 +175,14 @@ public class VendaController {
 	}
 	private List<ItemVendaModel> ToItemVendaModel(VendaDTO modelDTO) {
 		var itemVenda = new ArrayList<ItemVendaModel>();
+		 
 		for(var item : modelDTO.getVendaItens()) {
-			var modelItem = new ItemVendaModel();
-			var produto = _productServices.findById(item.getItemId()).get();
-			BeanUtils.copyProperties(item, modelItem); 
-			modelItem.setProduto(produto);
-			modelItem.setTaxa(produto.getTaxa());
-			modelItem.setSubtotal(item.getSubtotal()); 
+			var id = item.getItemProductId().toString(); 
+			var modelItem = _saleServices.GetItemVendaModel(item,id); 
 			itemVenda.add(modelItem);
 		}
 		return itemVenda;
 		 
 	}
+	 
 }

@@ -4,6 +4,8 @@ import java.util.UUID;
 
 public class ItemVendaDTO {
 	private UUID itemId;
+	private UUID itemProductId;
+	private String itemLote;
 	private double subtotal;	
 	private double preco;	
 	private int quantidade;
@@ -40,4 +42,17 @@ public class ItemVendaDTO {
 	public void setDescricaoItem(String descricaoItem) {
 		this.descricaoItem = descricaoItem;
 	}
+	public String getItemLote() {
+		return itemLote;
+	}
+	public void setItemLote(String itemLote) {
+		this.itemLote = itemLote;
+	}
+	public UUID getItemProductId() {
+		return itemProductId;
+	}
+	public void setItemProductId(UUID itemProductId) {
+		this.itemProductId = itemProductId;
+	}
+	
 }

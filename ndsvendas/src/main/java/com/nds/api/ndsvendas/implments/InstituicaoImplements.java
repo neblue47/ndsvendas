@@ -1,4 +1,4 @@
-package com.nds.api.ndsvendas.services;
+package com.nds.api.ndsvendas.implments;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,7 +27,7 @@ import com.nds.api.ndsvendas.repositories.ParamFiscalRepository;
 import com.nds.api.ndsvendas.repositories.ParametroRepository;
 
 @Service
-public class InstituicaoService {
+public class InstituicaoImplements {
 
 	@Autowired InstituicaoRepository _instituicaoRepository; 
 	@Autowired MotivoIsencaoRepository _motivoIseRepository;

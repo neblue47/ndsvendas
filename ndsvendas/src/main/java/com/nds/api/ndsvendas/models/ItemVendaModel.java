@@ -30,6 +30,7 @@ public class ItemVendaModel implements Serializable{
 	private Double subtotal;
 	
 	private Double taxa;
+	private String lote;
 
 	@ManyToOne // (cascade = CascadeType.ALL)
 	private ProdutoModel produto;
@@ -72,6 +73,14 @@ public class ItemVendaModel implements Serializable{
 
 	public void setProduto(ProdutoModel produto) {
 		this.produto = produto;
+	}
+
+	public String getLote() {
+		return lote;
+	}
+
+	public void setLote(String lote) {
+		this.lote = lote;
 	}
 	 
 	 

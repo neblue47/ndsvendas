@@ -1,4 +1,4 @@
-package com.nds.api.ndsvendas.services;
+package com.nds.api.ndsvendas.implments;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -32,12 +32,12 @@ import com.nds.api.ndsvendas.repositories.ProdutoRepository;
 import com.nds.api.ndsvendas.repositories.VendaRepository;
 
 @Service
-public class VendaService {
+public class VendaImplements {
 
 	@Autowired VendaRepository _vendaRepository;
 	@Autowired ProdutoRepository _productRepository;
 	@Autowired ClienteRepository _clientRepository;
-	@Autowired ClienteService _clientServices;
+	@Autowired ClienteImplements _clientServices;
 	
 	
 	@Transactional
@@ -110,6 +110,8 @@ public class VendaService {
 				var target = new ItemVendaDTO();
 				BeanUtils.copyProperties(itemsoure, target);
 				target.setItemId(itemsoure.getId());
+				target.setItemProductId(itemsoure.getProduto().getId());
+				target.setItemLote(itemsoure.getLote());
 				target.setSubtotal(itemsoure.getSubtotal());
 				target.setPreco(itemsoure.getProduto().getPreco_taxado());
 				target.setQuantidade(itemsoure.getQuantidade());
@@ -121,5 +123,15 @@ public class VendaService {
 
 	public Object anularVenda(VendaModel vendaModel) {
 		return _vendaRepository.save(vendaModel);
+	} 
+	public ItemVendaModel GetItemVendaModel(ItemVendaDTO itemDTO, String produtoId) {
+		
+		var modelItem = new ItemVendaModel();		 
+		var produto = _productRepository.findOneProduct(produtoId).get();		 
+		BeanUtils.copyProperties(itemDTO, modelItem); 
+		modelItem.setProduto(produto);
+		modelItem.setTaxa(produto.getTaxa());
+		modelItem.setSubtotal(itemDTO.getSubtotal()); 
+		return modelItem;
 	}
 }

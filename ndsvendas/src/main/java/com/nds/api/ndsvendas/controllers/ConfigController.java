@@ -33,21 +33,21 @@ import com.nds.api.ndsvendas.enums.EMoeda;
 import com.nds.api.ndsvendas.enums.EStatuStock;
 import com.nds.api.ndsvendas.enums.ETipoComercializacao;
 import com.nds.api.ndsvendas.enums.EUserGroup;
+import com.nds.api.ndsvendas.implments.InstituicaoImplements;
+import com.nds.api.ndsvendas.implments.ProdutoImplements;
 import com.nds.api.ndsvendas.models.InstituicaoModel;
 import com.nds.api.ndsvendas.models.MotivoIsencaoModel;
 import com.nds.api.ndsvendas.models.ParamFiscalModel;
 import com.nds.api.ndsvendas.models.UtilizadorModel;
 import com.nds.api.ndsvendas.security.entities.Login;
-import com.nds.api.ndsvendas.services.InstituicaoService;
-import com.nds.api.ndsvendas.services.ProdutoService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/configuracoes")
 public class ConfigController {
 
-	@Autowired InstituicaoService _instistService;
-	@Autowired ProdutoService _productServices; 
+	@Autowired InstituicaoImplements _instistService;
+	@Autowired ProdutoImplements _productServices; 
 	
 	@GetMapping 
     public ResponseEntity<RetornoInstituicaoDTO> getAllCliente(@PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable){

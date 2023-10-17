@@ -26,12 +26,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nds.api.ndsvendas.dtos.UtilizadorDTO;
 import com.nds.api.ndsvendas.enums.EUserGroup;
+import com.nds.api.ndsvendas.implments.UtilizadorImplements;
 import com.nds.api.ndsvendas.models.UtilizadorModel;
 import com.nds.api.ndsvendas.security.entities.Login;
 import com.nds.api.ndsvendas.security.enums.PerfilEnum;
 import com.nds.api.ndsvendas.security.service.LoginService;
 import com.nds.api.ndsvendas.security.service.impl.UserDetailsServiceImpl;
-import com.nds.api.ndsvendas.services.UtilizadorService;
  
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -40,7 +40,7 @@ public class UtilizadorController {
 
 	@Autowired PasswordEncoder passwordEncoder  ;
 	
-	@Autowired UtilizadorService _userServices;
+	@Autowired UtilizadorImplements _userServices;
 	@Autowired LoginService _loginServices;
 	@Autowired UserDetailsServiceImpl _userAuth;
 	 

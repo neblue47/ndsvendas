@@ -1,11 +1,11 @@
 package com.nds.api.ndsvendas.security.controller;
 
+import com.nds.api.ndsvendas.implments.UtilizadorImplements;
 import com.nds.api.ndsvendas.security.request.LoginJwtRequest;
 import com.nds.api.ndsvendas.security.response.LoginJwtResponse;
 import com.nds.api.ndsvendas.security.service.LoginService;
 import com.nds.api.ndsvendas.security.service.impl.UserDetailsServiceImpl;
 import com.nds.api.ndsvendas.security.utils.JwtUtil;
-import com.nds.api.ndsvendas.services.UtilizadorService;
 
 import lombok.RequiredArgsConstructor; 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +26,7 @@ public class LoginController {
     @Autowired
     private  UserDetailsServiceImpl userDetailsServiceImpl;
     @Autowired 
-    private  UtilizadorService _userServices;
+    private  UtilizadorImplements _userServices;
 
     @Autowired
     private JwtUtil jwtUtil;

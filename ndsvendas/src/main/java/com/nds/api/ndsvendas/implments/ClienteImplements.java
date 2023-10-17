@@ -1,4 +1,4 @@
-package com.nds.api.ndsvendas.services;
+package com.nds.api.ndsvendas.implments;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -21,7 +21,7 @@ import com.nds.api.ndsvendas.repositories.ClienteRepository;
 import com.nds.api.ndsvendas.repositories.ContaClienteRepository;
 
 @Service
-public class ClienteService {
+public class ClienteImplements {
 
 	@Autowired ClienteRepository _clientRepository;
 	@Autowired ContaClienteRepository _contClientRepository;

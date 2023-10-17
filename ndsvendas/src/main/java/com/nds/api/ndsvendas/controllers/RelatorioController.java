@@ -46,10 +46,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.nds.api.ndsvendas.dtos.VendaDTO;
 import com.nds.api.ndsvendas.dtos.VendaFilterDTO;
 import com.nds.api.ndsvendas.enums.ENumVenda;
+import com.nds.api.ndsvendas.implments.ClienteImplements;
+import com.nds.api.ndsvendas.implments.ProdutoImplements;
+import com.nds.api.ndsvendas.implments.VendaImplements;
 import com.nds.api.ndsvendas.security.service.impl.UserDetailsServiceImpl;
-import com.nds.api.ndsvendas.services.ClienteService;
-import com.nds.api.ndsvendas.services.ProdutoService;
-import com.nds.api.ndsvendas.services.VendaService;
 import com.nds.api.ndsvendas.utils.ConexaoUtil;
 import com.nds.api.ndsvendas.utils.Utilitarios;
 
@@ -67,9 +67,9 @@ import net.sf.jasperreports.engine.export.JRPdfExporter;
 @RequestMapping("/relatorios")
 public class RelatorioController {
 
-	@Autowired VendaService _saleServices;
-	@Autowired ProdutoService _productServices;
-	@Autowired ClienteService _clientServices;
+	@Autowired VendaImplements _saleServices;
+	@Autowired ProdutoImplements _productServices;
+	@Autowired ClienteImplements _clientServices;
 	@Autowired ResourceLoader _resourceLoader;
 	@Autowired UserDetailsServiceImpl _userAuth;
 	private Utilitarios utilitario = new Utilitarios();

@@ -26,15 +26,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nds.api.ndsvendas.dtos.ProdutoDTO;
 import com.nds.api.ndsvendas.enums.EStatuStock;
-import com.nds.api.ndsvendas.models.ProdutoModel; 
-import com.nds.api.ndsvendas.services.ProdutoService;
+import com.nds.api.ndsvendas.implments.ProdutoImplements;
+import com.nds.api.ndsvendas.models.ProdutoModel;
 
 @CrossOrigin(origins = "*",maxAge = 3600)
 @RestController
 @RequestMapping("/produtos")
 public class ProdutoController {
 	
-	@Autowired ProdutoService _productServices; 
+	@Autowired ProdutoImplements _productServices; 
 	@PostMapping
 	@PreAuthorize("hasAnyRole('ADMINISTRADOR', 'OPERADOR', 'CONSULTA')")
     public ResponseEntity<Object> saveProduto(@RequestBody @Valid ProdutoDTO produtoDto){

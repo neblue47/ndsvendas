@@ -1,4 +1,4 @@
-package com.nds.api.ndsvendas.services;
+package com.nds.api.ndsvendas.implments;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -17,7 +17,7 @@ import com.nds.api.ndsvendas.models.ProdutoModel;
 import com.nds.api.ndsvendas.models.UtilizadorModel;
 import com.nds.api.ndsvendas.repositories.ProdutoRepository; 
 @Service
-public class ProdutoService {
+public class ProdutoImplements {
 
 	@Autowired ProdutoRepository _productRepository;
 	
@@ -45,10 +45,13 @@ public class ProdutoService {
 	 
 	 
     public Optional<ProdutoModel> findById(UUID id) {
-        return _productRepository.findById(id);
+        return _productRepository.findOneProduct(id);
+    }
+    public Optional<ProdutoModel> findById(String id) {
+        return _productRepository.findOneProduct(id);
     }
     public Optional<ProdutoDTO> findToDTOById(UUID id) {
-    	var target = _productRepository.findById(id);
+    	var target = _productRepository.findOneProduct(id);
         Optional<ProdutoDTO> dtos  = target.map(this::ConvertToObjectDto);
         return  dtos;
     }
